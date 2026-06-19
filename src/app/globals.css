@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-inter: Inter, ui-sans-serif, system-ui, sans-serif;
+    --font-space-grotesk: "Space Grotesk", Inter, ui-sans-serif, system-ui, sans-serif;
+    --background: 262 100% 5%;
+    --foreground: 265 55% 94%;
+    --card: 263 76% 8%;
+    --card-foreground: 265 55% 94%;
+    --muted: 261 36% 16%;
+    --muted-foreground: 258 18% 66%;
+    --primary: 263 100% 58%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 265 100% 68%;
+    --secondary: 260 36% 13%;
+    --secondary-foreground: 265 55% 92%;
+    --accent: 277 92% 62%;
+    --accent-foreground: 0 0% 100%;
+    --accent-pink: 316 91% 54%;
+    --border: 263 31% 26%;
+    --input: 263 31% 26%;
+    --ring: 265 100% 68%;
+    --vault-black: 260 100% 3%;
+    --vault-ink: 262 100% 6%;
+    --vault-plum: 263 79% 10%;
+    --vault-violet: 261 85% 22%;
+    --vault-purple: 263 100% 58%;
+    --vault-magenta: 316 91% 54%;
+    --vault-lavender: 257 31% 76%;
+    --vault-smoke: 258 18% 66%;
+    --radius-xs: 0.375rem;
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.25rem;
+    --radius-2xl: 1.75rem;
+    --radius-pill: 9999px;
+    --section-spacing: clamp(5rem, 10vw, 9rem);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply scroll-smooth bg-background;
+  }
+
+  body {
+    @apply min-h-screen overflow-x-hidden bg-background font-sans text-foreground antialiased;
+  }
+
+  ::selection {
+    @apply bg-primary/40 text-white;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .glass-border {
+    @apply border border-white/10 bg-white/[0.03] shadow-inner-line backdrop-blur-xl;
+  }
+}
