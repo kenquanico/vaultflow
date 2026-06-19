@@ -8,8 +8,9 @@ import { cn } from "@/lib/utils";
 
 const navLinks = [
   { label: "Features", href: "#features" },
+  { label: "Workflow", href: "#workflow" },
+  { label: "Customers", href: "#customers" },
   { label: "Pricing", href: "#pricing" },
-  { label: "About us", href: "#about" },
 ];
 
 export function Navbar() {
@@ -44,17 +45,17 @@ export function Navbar() {
             priority
             className="h-5 w-5"
           />
-          <span className="font-display text-base font-bold tracking-[-0.02em] text-foreground">
+          <span className="font-display text-base font-bold text-foreground">
             Vaultflow
           </span>
         </a>
 
-        <div className="hidden items-center gap-14 md:flex">
+        <div className="hidden items-center gap-9 lg:gap-12 md:flex">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              className="rounded-pill px-2 py-1 text-sm font-medium text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
             >
               {link.label}
             </a>
@@ -62,8 +63,8 @@ export function Navbar() {
         </div>
 
         <div className="hidden items-center gap-4 md:flex">
-          <Button href="#download" size="sm">
-            Download the app
+          <Button href="#pricing" size="sm">
+            View plans
           </Button>
           <Button href="#contact" variant="outline" size="sm">
             Talk to an expert
@@ -100,7 +101,7 @@ export function Navbar() {
               </a>
             ))}
             <div className="grid gap-3 pt-2">
-              <Button href="#download">Download the app</Button>
+              <Button href="#pricing">View plans</Button>
               <Button href="#contact" variant="outline">
                 Talk to an expert
               </Button>
