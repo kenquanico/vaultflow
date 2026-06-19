@@ -6,15 +6,15 @@ import { motion, useInView } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/Card";
 
 const codeLines = [
-  "// addNumbersToToken",
-  "function addNumbersToToken(num1, num2) {",
-  "  let sum = num1 + num2;",
-  "  let token = {",
-  "    value: sum,",
-  "    value: sum,",
-  "  };",
-  "  return token;",
-  "}",
+  "// revenue-health.signal",
+  "const account = await vaultflow.accounts.get(id);",
+  "const risk = model.score({",
+  "  usage: account.activeSeats,",
+  "  pipeline: account.openExpansion,",
+  "  sentiment: account.supportTrend,",
+  "});",
+  "await alerts.route({ risk, owner: account.csm });",
+  "metrics.publish('account_health', risk);",
 ];
 
 export function WideFeatureCard() {
@@ -37,21 +37,18 @@ export function WideFeatureCard() {
                 <Code2 className="h-6 w-6 text-white" />
               </div>
               <h3 className="font-display text-heading-md text-foreground">
-                Code collaboration
+                Built for modern data teams
               </h3>
               <p className="mt-4 max-w-xl text-body-sm text-muted-foreground">
-                Our advanced code synchronization technology ensures that your
-                data is always up-to-date and accurate, no matter where it&apos;s
-                coming from. Whether you&apos;re integrating data from multiple
-                sources or working with a team of developers, our synchronization
-                technology makes it easy to collaborate and ensure that your data
-                is consistent and reliable.
+                Connect warehouses, product events, billing systems, and support
+                tools through a typed data layer. Vaultflow keeps every metric
+                traceable, versioned, and ready for operational workflows.
               </p>
               <a
-                href="#"
+                href="#trust"
                 className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-foreground underline decoration-white/40 underline-offset-4 transition-colors hover:text-primary-glow"
               >
-                View code collaboration
+                View governance features
                 <ArrowUpRight className="h-4 w-4" />
               </a>
             </div>
@@ -65,7 +62,7 @@ export function WideFeatureCard() {
                   {codeLines.map((line, index) => (
                     <span key={`${line}-${index}`} className="block">
                       <span className="mr-5 text-white/25">{index + 1}</span>
-                      <span className={line.includes("let") || line.includes("return") ? "text-accent-pink" : ""}>
+                      <span className={line.includes("const") || line.includes("await") ? "text-accent-pink" : ""}>
                         {line}
                       </span>
                     </span>
