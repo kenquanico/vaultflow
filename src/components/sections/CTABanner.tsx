@@ -10,7 +10,7 @@ export function CTABanner() {
 
   return (
     <motion.section
-      id="download"
+      id="get-started"
       ref={ref}
       className="container py-12 md:py-16"
       initial={{ opacity: 0, y: 34 }}
@@ -20,19 +20,16 @@ export function CTABanner() {
       <div className="relative overflow-hidden rounded-2xl border border-white/12 bg-card/80 px-6 py-16 text-center shadow-card-glow md:px-16 md:py-24">
         <div className="absolute left-1/2 top-0 h-56 w-3/4 -translate-x-1/2 rounded-full bg-primary/15 blur-3xl" />
         <div className="relative mx-auto max-w-4xl">
-          <h2 className="font-display text-heading-xl text-foreground text-balance">
-            Our powerful analytics
-            <br />
-            provides invaluable insights.
+          <h2 className="font-display text-heading-lg text-foreground text-balance md:text-heading-xl">
+            Ready to run your business from live signals?
           </h2>
           <p className="mx-auto mt-7 max-w-3xl text-body-md text-muted-foreground">
-            Unlock the power of data with our cutting-edge analytics product.
-            Get instant insights with our user-friendly Analytics Dashboard, and
-            take advantage of our innovative digital credit tokens to reward
-            your customers and incentivize engagement.
+            Bring product, revenue, and customer data into one workspace your
+            teams can use every day. We will help you launch the first operating
+            dashboard in days, not months.
           </p>
-          <Button href="#" variant="outline" className="mt-9">
-            Download the app
+          <Button href="#contact" variant="outline" className="mt-9">
+            Talk to an expert
           </Button>
         </div>
       </div>
