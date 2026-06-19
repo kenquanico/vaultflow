@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { ArrowUpRight, BarChart3, Coins } from "lucide-react";
+import { ArrowUpRight, BarChart3, Coins, ShieldCheck } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/Card";
 import { cn } from "@/lib/utils";
@@ -9,19 +9,30 @@ import { cn } from "@/lib/utils";
 const features = [
   {
     icon: BarChart3,
-    title: "Analytics Dashboard",
+    title: "Live analytics workspace",
     description:
-      "Our Analytics Dashboard provides a clear and intuitive interface for you to easily analyze your data. From customizable graphs to real-time data updates, our dashboard offers everything you need to gain valuable insights.",
-    link: "View dashboard",
+      "Blend product usage, revenue, and customer health into configurable views that update as your business changes.",
+    link: "Explore dashboards",
+    href: "#workflow",
     glow: "from-primary to-vault-purple",
   },
   {
     icon: Coins,
-    title: "Digital Credit Tokens",
+    title: "Revenue signal scoring",
     description:
-      "Reward your customers and incentivize engagement with our innovative digital credit tokens. Our tokens can be customized to match your branding, and are a flexible and scalable way to drive customer loyalty and encourage repeat business.",
-    link: "View tokens",
+      "Surface expansion, churn, and retention signals automatically so account teams can act before a trend becomes a surprise.",
+    link: "See customer proof",
+    href: "#customers",
     glow: "from-accent to-accent-pink",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Governed by default",
+    description:
+      "Keep metrics definitions, permissions, audit history, and sensitive datasets aligned across every team and report.",
+    link: "Review trust layer",
+    href: "#trust",
+    glow: "from-vault-violet to-primary",
   },
 ];
 
@@ -44,8 +55,8 @@ function FeatureCard({ feature, index }: FeatureCardProps) {
       whileHover={{ scale: 1.02 }}
       className="h-full"
     >
-      <Card className="group h-full hover:border-primary/70 hover:shadow-card-glow">
-        <CardContent className="flex min-h-[320px] flex-col items-start justify-between">
+      <Card className="group h-full hover:-translate-y-1 hover:border-primary/70 hover:shadow-card-glow">
+        <CardContent className="flex min-h-[310px] flex-col items-start justify-between">
           <div>
             <div
               className={cn(
@@ -63,11 +74,11 @@ function FeatureCard({ feature, index }: FeatureCardProps) {
             </p>
           </div>
           <a
-            href="#"
+            href={feature.href}
             className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-foreground underline decoration-white/40 underline-offset-4 transition-colors group-hover:text-primary-glow"
           >
             {feature.link}
-            <ArrowUpRight className="h-4 w-4" />
+            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
         </CardContent>
       </Card>
@@ -77,7 +88,7 @@ function FeatureCard({ feature, index }: FeatureCardProps) {
 
 export function FeatureCards() {
   return (
-    <section className="container grid gap-6 py-12 md:grid-cols-2 md:py-16">
+    <section className="container grid gap-6 py-12 md:grid-cols-3 md:py-16">
       {features.map((feature, index) => (
         <FeatureCard key={feature.title} feature={feature} index={index} />
       ))}
