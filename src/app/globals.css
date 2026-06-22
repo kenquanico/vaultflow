@@ -70,4 +70,34 @@
   .glass-border {
     @apply border border-white/10 bg-white/[0.03] shadow-inner-line backdrop-blur-xl;
   }
+
+  .cta-soft-glow {
+    @apply relative isolate overflow-hidden border-primary/55 shadow-[0_0_34px_hsl(var(--primary-glow)/0.18)];
+  }
+
+  .cta-soft-glow::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    border-radius: inherit;
+    background: linear-gradient(
+      110deg,
+      hsl(var(--primary) / 0.5),
+      hsl(var(--accent-pink) / 0.32),
+      hsl(var(--primary-glow) / 0.5)
+    );
+    opacity: 0.55;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
