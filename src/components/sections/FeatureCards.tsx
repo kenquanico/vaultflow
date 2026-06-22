@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { ArrowUpRight, BarChart3, Coins, ShieldCheck } from "lucide-react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/Card";
 import { cn } from "@/lib/utils";
 
@@ -43,19 +43,35 @@ interface FeatureCardProps {
 
 function FeatureCard({ feature, index }: FeatureCardProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const shouldReduceMotion = useReducedMotion();
+  const inView = useInView(ref, { once: true, margin: "0px 0px -18% 0px" });
   const Icon = feature.icon;
+  const fanOffset = (index - 1) * 28;
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 34 }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 34 }}
-      transition={{ duration: 0.7, delay: index * 0.12, ease: "easeOut" }}
-      whileHover={{ scale: 1.02 }}
+      initial={
+        shouldReduceMotion
+          ? { opacity: 0 }
+          : { opacity: 0, x: fanOffset, y: 28, scale: 0.97 }
+      }
+      animate={
+        inView
+          ? { opacity: 1, x: 0, y: 0, scale: 1 }
+          : shouldReduceMotion
+            ? { opacity: 0 }
+            : { opacity: 0, x: fanOffset, y: 28, scale: 0.97 }
+      }
+      transition={
+        shouldReduceMotion
+          ? { duration: 0.01, delay: 0 }
+          : { type: "spring", stiffness: 200, damping: 20, delay: index * 0.09 }
+      }
+      whileHover={shouldReduceMotion ? undefined : { y: -6, scale: 1.015 }}
       className="h-full"
     >
-      <Card className="group h-full hover:-translate-y-1 hover:border-primary/70 hover:shadow-card-glow">
+      <Card className="group h-full hover:border-primary/70 hover:shadow-card-glow">
         <CardContent className="flex min-h-[310px] flex-col items-start justify-between">
           <div>
             <div
