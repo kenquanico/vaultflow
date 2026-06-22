@@ -1,20 +1,21 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 const logos = [
-  { name: "Dell", src: "/logos/dell.svg", width: 120 },
-  { name: "Zendesk", src: "/logos/zendesk.svg", width: 140 },
-  { name: "Rakuten", src: "/logos/rakuten.svg", width: 140 },
-  { name: "Pacific Funds", src: "/logos/pacific-funds.svg", width: 180 },
-  { name: "NCR", src: "/logos/ncr.svg", width: 120 },
-  { name: "Lattice", src: "/logos/lattice.svg", width: 140 },
-  { name: "TED", src: "/logos/ted.svg", width: 100 },
+  { name: "Partner logo", src: "/logos/logo-wrapper.svg", width: 62, height: 20 },
+  { name: "Partner logo", src: "/logos/logo-wrapper-1.svg", width: 87, height: 17 },
+  { name: "Partner logo", src: "/logos/logo-wrapper-2.svg", width: 67, height: 21 },
+  { name: "Partner logo", src: "/logos/logo-wrapper-3.svg", width: 143, height: 13 },
+  { name: "Partner logo", src: "/logos/logo-wrapper-4.svg", width: 80, height: 25 },
+  { name: "Partner logo", src: "/logos/logo-wrapper-5.svg", width: 120, height: 23 },
+  { name: "Partner logo", src: "/logos/logo-wrapper-6.svg", width: 55, height: 20 },
 ];
 
 export function LogoBar() {
   const marqueeLogos = [...logos, ...logos];
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <section className="container overflow-hidden py-14 text-center md:py-20">
@@ -29,17 +30,21 @@ export function LogoBar() {
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-background to-transparent" />
         <motion.div
           className="flex w-max items-center gap-12"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 28, ease: "linear", repeat: Infinity }}
+          animate={shouldReduceMotion ? { x: 0 } : { x: ["0%", "-50%"] }}
+          transition={
+            shouldReduceMotion
+              ? { duration: 0.01 }
+              : { duration: 28, ease: "linear", repeat: Infinity }
+          }
         >
           {marqueeLogos.map((logo, index) => (
             <Image
-              key={`${logo.name}-${index}`}
+              key={`${logo.src}-${index}`}
               src={logo.src}
               alt={logo.name}
               width={logo.width}
-              height={32}
-              className="h-8 w-auto opacity-55 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0"
+              height={logo.height}
+              className="h-auto w-auto opacity-75 transition-opacity duration-150 ease-out hover:opacity-100"
             />
           ))}
         </motion.div>
