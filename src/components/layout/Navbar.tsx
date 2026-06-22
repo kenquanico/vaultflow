@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
@@ -16,6 +17,7 @@ const navLinks = [
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -27,12 +29,17 @@ export function Navbar() {
   }, []);
 
   return (
-    <header
+    <motion.header
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: -14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={
+        shouldReduceMotion
+          ? { duration: 0.01 }
+          : { duration: 0.18, ease: "easeOut" }
+      }
       className={cn(
-        "fixed inset-x-0 top-0 z-50 border-b backdrop-blur-xl transition-colors duration-300",
-        scrolled
-          ? "border-white/15 bg-vault-black/95"
-          : "border-transparent bg-vault-black/70",
+        "fixed inset-x-0 top-0 z-50 border-b bg-[#0B011E] transition-colors duration-200 ease-out",
+        scrolled ? "border-white/15" : "border-transparent",
       )}
     >
       <nav className="container flex h-16 items-center justify-between">
@@ -73,7 +80,7 @@ export function Navbar() {
 
         <button
           type="button"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-pill border border-white/10 text-foreground md:hidden"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-pill border border-white/10 text-foreground transition-colors duration-150 ease-out hover:border-primary/60 hover:bg-white/5 md:hidden"
           aria-label="Toggle navigation menu"
           aria-expanded={isOpen}
           onClick={() => setIsOpen((open) => !open)}
@@ -84,7 +91,7 @@ export function Navbar() {
 
       <div
         className={cn(
-          "grid overflow-hidden transition-[grid-template-rows] duration-300 md:hidden",
+          "grid overflow-hidden transition-[grid-template-rows] duration-200 ease-out md:hidden",
           isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
         )}
       >
@@ -109,6 +116,6 @@ export function Navbar() {
           </div>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 }
