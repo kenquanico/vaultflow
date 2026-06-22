@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { DatabaseZap, LineChart, Sparkles, Workflow } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 
@@ -32,6 +32,8 @@ const steps = [
 ];
 
 export function WorkflowSection() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section id="workflow" className="container py-16 md:py-24" aria-labelledby="workflow-heading">
       <Reveal className="mx-auto max-w-3xl text-center">
@@ -55,8 +57,10 @@ export function WorkflowSection() {
           return (
             <Reveal key={step.title} delay={index * 0.08}>
               <motion.article
-                className="group relative h-full rounded-2xl border border-white/10 bg-card/70 p-6 shadow-inner-line transition-all duration-300 hover:-translate-y-1 hover:border-primary/60 hover:bg-white/[0.055]"
-                whileTap={{ scale: 0.985 }}
+                className="group relative h-full rounded-2xl border border-white/10 bg-card/70 p-6 shadow-inner-line transition-all duration-300 hover:border-primary/60 hover:bg-white/[0.055]"
+                whileHover={shouldReduceMotion ? undefined : { y: -4 }}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.985 }}
+                transition={{ type: "spring", stiffness: 220, damping: 22 }}
               >
                 <div className="mb-8 flex items-center justify-between">
                   <span className="text-caption font-semibold text-vault-lavender">{step.eyebrow}</span>
