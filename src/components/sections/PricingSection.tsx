@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, Sparkles } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent } from "@/components/ui/Card";
 import { Reveal } from "@/components/ui/Reveal";
@@ -38,6 +38,8 @@ const plans = [
 ];
 
 export function PricingSection() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section id="pricing" className="container py-16 md:py-24" aria-labelledby="pricing-heading">
       <Reveal className="mx-auto max-w-3xl text-center">
@@ -56,7 +58,11 @@ export function PricingSection() {
       <div className="mt-12 grid gap-5 lg:grid-cols-3">
         {plans.map((plan, index) => (
           <Reveal key={plan.name} delay={index * 0.08}>
-            <motion.article whileHover={{ y: -6 }} whileTap={{ scale: 0.985 }} transition={{ duration: 0.25 }}>
+            <motion.article
+              whileHover={shouldReduceMotion ? undefined : { y: -6 }}
+              whileTap={shouldReduceMotion ? undefined : { scale: 0.985 }}
+              transition={{ type: "spring", stiffness: 220, damping: 22 }}
+            >
               <Card
                 className={cn(
                   "relative h-full overflow-hidden",
