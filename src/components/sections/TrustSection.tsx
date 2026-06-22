@@ -1,6 +1,8 @@
 "use client";
 
+import { useRef } from "react";
 import { CheckCircle2, Globe2, LockKeyhole, ShieldCheck } from "lucide-react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { Reveal } from "@/components/ui/Reveal";
 import { Card, CardContent } from "@/components/ui/Card";
 
@@ -32,6 +34,45 @@ const trustItems = [
   { icon: CheckCircle2, label: "Metric lineage and approvals" },
 ];
 
+interface TestimonialCardProps {
+  testimonial: (typeof testimonials)[number];
+  index: number;
+}
+
+function TestimonialCard({ testimonial, index }: TestimonialCardProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+  const inView = useInView(ref, {
+    once: true,
+    margin: "0px 0px -18% 0px",
+  });
+
+  return (
+    <Reveal delay={index * 0.08}>
+      <div ref={ref}>
+        <Card className="group relative h-full overflow-hidden hover:border-primary/60 hover:shadow-card-glow">
+          {!shouldReduceMotion ? (
+            <motion.div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent"
+              initial={{ x: "-120%", opacity: 0 }}
+              animate={inView ? { x: "120%", opacity: [0, 1, 0] } : undefined}
+              transition={{ duration: 0.9, delay: 0.12, ease: "easeOut" }}
+            />
+          ) : null}
+          <CardContent className="flex h-full flex-col justify-between">
+            <p className="text-body-md text-foreground text-pretty">&ldquo;{testimonial.quote}&rdquo;</p>
+            <div className="mt-10">
+              <p className="font-semibold text-foreground">{testimonial.name}</p>
+              <p className="mt-1 text-body-sm text-muted-foreground">{testimonial.role}</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </Reveal>
+  );
+}
+
 export function TrustSection() {
   return (
     <section id="customers" className="container py-16 md:py-24" aria-labelledby="customers-heading">
@@ -52,17 +93,7 @@ export function TrustSection() {
 
       <div className="mt-10 grid gap-5 md:grid-cols-3">
         {testimonials.map((testimonial, index) => (
-          <Reveal key={testimonial.name} delay={index * 0.08}>
-            <Card className="group h-full hover:-translate-y-1 hover:border-primary/60 hover:shadow-card-glow">
-              <CardContent className="flex h-full flex-col justify-between">
-                <p className="text-body-md text-foreground text-pretty">&ldquo;{testimonial.quote}&rdquo;</p>
-                <div className="mt-10">
-                  <p className="font-semibold text-foreground">{testimonial.name}</p>
-                  <p className="mt-1 text-body-sm text-muted-foreground">{testimonial.role}</p>
-                </div>
-              </CardContent>
-            </Card>
-          </Reveal>
+          <TestimonialCard key={testimonial.name} testimonial={testimonial} index={index} />
         ))}
       </div>
 
