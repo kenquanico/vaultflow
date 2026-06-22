@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { ArrowUpRight, Code2 } from "lucide-react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/Card";
 
 const codeLines = [
@@ -19,16 +19,27 @@ const codeLines = [
 
 export function WideFeatureCard() {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const shouldReduceMotion = useReducedMotion();
+  const inView = useInView(ref, { once: true, margin: "0px 0px -18% 0px" });
 
   return (
     <section className="container py-8 md:py-12">
       <motion.div
         ref={ref}
-        initial={{ opacity: 0, y: 34 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 34 }}
-        transition={{ duration: 0.75, ease: "easeOut" }}
-        whileHover={{ scale: 1.01 }}
+        initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 34, scale: 0.98 }}
+        animate={
+          inView
+            ? { opacity: 1, y: 0, scale: 1 }
+            : shouldReduceMotion
+              ? { opacity: 0 }
+              : { opacity: 0, y: 34, scale: 0.98 }
+        }
+        transition={
+          shouldReduceMotion
+            ? { duration: 0.01 }
+            : { type: "spring", stiffness: 200, damping: 20 }
+        }
+        whileHover={shouldReduceMotion ? undefined : { scale: 1.01 }}
       >
         <Card className="overflow-hidden hover:border-primary/70 hover:shadow-card-glow">
           <CardContent className="grid min-h-[360px] items-center gap-12 md:grid-cols-[0.92fr_1fr] lg:p-14">
